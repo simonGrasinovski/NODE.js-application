@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book application</title>
+    <link id="main-css" rel="stylesheet" href="/stylesheets/main.css">
+</head>
+<body>
+    <%- include('../../partials/header.ejs') %>
+    <h2 class="page-header"><%= author.name %></h2>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/authors/<%= author._id %>/edit">Edit</a>
+        <form method="POST" action="/authors/<%= author._id %>?_method=DELETE">
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+    </div>
+
+    <% if(books.length > 0) { %>
+        <h2 class="page-header">Books By Author</h2>
+        <%- include('../../partials/bookGrid.ejs') %>
+    <% } %>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book application</title>
+    <link id="main-css" rel="stylesheet" href="/stylesheets/main.css">
+</head>
+<body>
+    <%- include('../../partials/header.ejs') %>
+
+    <h2 class="page-header">Search Authors</h2>
+    <form action="/authors" method="GET">
+        <div class="form-row">
+            <div class="form-item">
+                <label for="name">Name</label>
+            <input type="text" name="name" id="name">
+            </div>
+        </div>
+        <div class="form-row form-row-end">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+
+    <% for(let i = 0; i < authors.length; i ++) { %>
+        <div class="author-row">
+            <div class="author-name"><%= authors[i].name %></div>
+            <div class="btn-row">
+                <a class="btn btn-primary" href="/authors/<%= authors[i]._id %>">View</a>
+                <a class="btn btn-primary" href="/authors/<%= authors[i]._id %>/edit">Edit</a>
+                <form method="POST" action="/authors/<%= authors[i]._id %>?_method=DELETE">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+        </div>
+        </div>
+    <% } %>
+</body>
+</html>

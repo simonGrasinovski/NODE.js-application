@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book application</title>
+    <link id="main-css" rel="stylesheet" href="/stylesheets/main.css">
+</head>
+<body>
+    <%- include('../../partials/header.ejs') %>
+    <h2 class="page-header">New author</h2>
+    <% if(messages.error !== 'undefined') { %>
+        <p class="error-message"><%= messages.error %></p>
+    <% } %>
+    <form action="/authors/new" method="POST">
+        <div class="form-row">
+            <div class="form-item">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name">
+            </div>
+        </div>
+        <div class="form-row form-row-end btn-row">
+            <a class="btn btn-danger" href="/authors">Cancel</a>
+            <button class="btn btn-primary" type="submit">Create</button>
+        </div>
+    </form>
+</body>
+</html>

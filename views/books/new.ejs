@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book application</title>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+    <link id="main-css" rel="stylesheet" href="/stylesheets/main.css">
+</head>
+<body>
+    <%- include('../../partials/header.ejs') %>
+    <h2 class="page-header">New book</h2>
+    <% if(messages.createError !== 'undefined') { %>
+        <p><%= messages.createError %></p>
+    <% } %>
+    <form action="/books/new" method="POST">
+        <div class="form-row">
+            <div class="form-item">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" 
+                value="<%= typeof title !== 'undefined' ? title : '' %>">
+            </div>
+            <div class="form-item">
+                <label for="author">Author</label>
+                <select name="author">
+                    <% for(let i = 0; i < authors.length; i ++) { %>
+                        <% if(authors[i]._id === book.author) { %>
+                            <option selected value="<%= authors[i].id %>"><%= authors[i].name %></option>
+                        <% } else { %>
+                            <option value="<%= authors[i].id %>"><%= authors[i].name %></option>
+                        <% } %>
+                    <% } %>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-item">
+                <label for="publishDate">Publish Date</label>
+                <input type="date" name="publishDate" id="publishDate"
+                value="<%= typeof publishDate !== 'undefined' ? publishDate : '' %>">
+            </div>
+            <div class="form-item">
+                <label for="pageCount">Page Count</label>
+                <input type="number" name="pageCount" id="pageCount" min="1"
+                value="<%= typeof pageCount !== 'undefined' ? pageCount : '' %>">  
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-item form-item-no-grow">
+                <label for="cover">Cover</label>
+                <input type="file" name="cover" id="cover" class="book-cover filepond">
+            </div>
+            <div class="form-item">
+                <label for="description">Description</label>
+                <textarea name="description" id="description"><%= typeof description !== 'undefined' ? description : '' %></textarea>
+            </div>
+        </div>
+        <div class="form-row form-row-end btn-row">
+            <a class="btn btn-danger" href="/books">Cancel</a>
+            <button class="btn btn-primary" type="submit">Create</button>
+        </div>
+    </form>
+
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script src="/fileUpload.js"></script>
+</body>
+</html>
